@@ -1,0 +1,37 @@
+security:
+
+    password_hashers:
+        App\Entity\User:
+            algorithm: auto
+
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER]
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            lazy: true
+            provider: app_user_provider
+            custom_authenticator: App\Security\LoginFormAuthenticator
+
+            logout:
+                path: app_logout
+
+    access_control:
+        # ✅ Allow anonymous access to login
+        - { path: ^/login$, roles: PUBLIC_ACCESS }
+
+        # ✅ Protect /admin with ROLE_ADMIN
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+        # ✅ Allow public access to everything else
+        - { path: ^/, roles: PUBLIC_ACCESS }

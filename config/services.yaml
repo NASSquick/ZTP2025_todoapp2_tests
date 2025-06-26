@@ -1,0 +1,44 @@
+# config/services.yaml
+
+parameters:
+    upload_directory: '%kernel.project_dir%/public/uploads'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    App\Service\FileUploader:
+        arguments:
+            $targetDirectory: '%upload_directory%'
+
+
+    # === GEDMO Doctrine Extensions AttributeReader fix ===
+
+    # Register Gedmo AttributeReader service
+    gedmo.mapping.attribute_reader:
+        class: Gedmo\Mapping\Driver\AttributeReader
+
+    # Override Gedmo MappedEventSubscriber to use AttributeReader instead of deprecated annotation reader
+    Gedmo\Mapping\MappedEventSubscriber:
+        calls:
+            - method: setAnnotationReader
+              arguments:
+                  - '@gedmo.mapping.attribute_reader'
+
+    Doctrine\ORM\Mapping\Driver\AttributeDriver:
+        arguments:
+            $paths: [ '%kernel.project_dir%/src/Entity' ]
+            $reportFieldsWhereDeclared: true

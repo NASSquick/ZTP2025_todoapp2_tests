@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="UnattendedHostPersistenceState">
+    <option name="openedFilesInfos">
+      <list>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="0" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/config/routes/annotations.yaml" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="462" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/Controller/GalleriesController.php" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="223" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/Controller/HomeController.php" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="321" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/Controller/UserController.php" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="2343" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/Controller/PhotosController.php" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="0" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/translations/messages.pl.xlf" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="0" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/translations/messages.en.xlf" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="0" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/translations/security.pl.yaml" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="11" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/public/index.php" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="11410005" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/var/log/dev.log" />
+        </OpenedFileInfo>
+      </list>
+    </option>
+  </component>
+</project>

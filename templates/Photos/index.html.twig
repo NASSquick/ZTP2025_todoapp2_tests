@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_Photos_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>
+        {{ 'title_Photos_list'|trans }}
+    </h1>
+    {% if pagination is defined and pagination.items|length %}
+        <div class="row justify-content-around">
+            <body>
+            {% for Photos in pagination.items %}
+                <div style="text-align: center">
+                <dl>
+                    <dt><img src="{{ asset('uploads/'~Photos.filename) }}" alt="{{ Photos.title }}" width="110px" height="150px"></dt>
+                    <div style="color: #A10DC6">
+                    <dd>{{'label_title'|trans}}</dd></div>
+                    <dd>{{ Photos.title }}</dd>
+                    <div style="color: #C10000">
+                    <dd>{{ 'label_gallery'|trans }}</dd></div>
+                    <dd>{{ Photos.gallery.title }}</dd>
+                    <dt>
+                        <a href="{{ url('Photos_show', {id: Photos.id}) }}"><button type="button" class="btn btn-light">Zobacz</button></a>
+                        <a href="{{ url('Comments_create', {photoId: Photos.id}) }}"><button type="button" class="btn btn-light">Skomentuj</button></a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ url('Photos_edit', {id: Photos.id}) }}"><button type="button" class="btn btn-light">Edytuj</button></a>
+                        <a href="{{ url('Photos_delete', {id: Photos.id}) }}"><button type="button" class="btn btn-light">Usuń</button></a>
+                        {% endif %}
+                    </dt>
+                </dl></div>
+            {% endfor %}
+            </body>
+            </div>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% else %}
+        <p>
+            {{ 'message_empty_list'|trans }}
+        </p>
+    {% endif %}
+{% endblock  %}

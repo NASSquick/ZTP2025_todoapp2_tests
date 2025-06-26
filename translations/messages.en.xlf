@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="label_actions">
+                <source>label_actions</source>
+                <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="label_id">
+                <source>label_id</source>
+                <target>Id</target>
+            </trans-unit>
+            <trans-unit id="label_title">
+                <source>label_title</source>
+                <target>Title</target>
+            </trans-unit>
+            <trans-unit id="label_content">
+                <source>label_content</source>
+                <target>Content</target>
+            </trans-unit>
+            <trans-unit id="label_tags">
+                <source>label_tags</source>
+                <target>Tags</target>
+            </trans-unit>
+            <trans-unit id="message_empty_list">
+                <source>message_empty_list</source>
+                <target>Empty list.</target>
+            </trans-unit>
+            <trans-unit id="title_record_list">
+                <source>title_record_list</source>
+                <target>Records list</target>
+            </trans-unit>
+            <trans-unit id="title_record_details">
+                <source>title_record_details</source>
+                <target>Photo #%id%</target>
+            </trans-unit>
+            <trans-unit id="0">
+                <source>title_Photos_list</source>
+                <target>Photo list</target>
+            </trans-unit>
+            <trans-unit id="1">
+                <source>label_created_at</source>
+                <target> Created at</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>label_updated_at</source>
+                <target>Updated at</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>label_text</source>
+                <target>Text</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>action_view</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>title_Galleries_details</source>
+                <target>Galleries details</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>title_Galleries_list</source>
+                <target>Galleries list</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>action_back_to_list</source>
+                <target>back</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>action_back_to_list</source>
+                <target>back</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>label_gallery</source>
+                <target>gallery</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>title_Galleries_create</source>
+                <target>Add gallery</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>action_save</source>
+                <target>save</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>button_create</source>
+                <target>create</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>action_edit</source>
+                <target>edit</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>title_Galleries_edit</source>
+                <target>Edit gallery</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>title_Galleries_delete</source>
+                <target>Delete gallery</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>action_delete</source>
+                <target>delete</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>title_Photos_create</source>
+                <target>Add photo</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>title_Photos_delete</source>
+                <target>delete</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>title_Photos_edit</source>
+                <target>edit</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>message.empty_list</source>
+                <target>Empty list</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>message_form_error</source>
+                <target>Error</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>action_logout</source>
+                <target>Log out</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>action_login</source>
+                <target>Log in</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>label_photo</source>
+                <target>Photo</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>message_item_not_found</source>
+                <target>Not found</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>label_upload_photo</source>
+                <target>Add photo</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source> 'label_none'</source>
+                <target>None of gallery</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>title_Comments_create</source>
+                <target>Add comment</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>title_Comments_delete</source>
+                <target>Delete comment</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>label_nick</source>
+                <target>Nick</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>label_email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>title_Comments_list</source>
+                <target>Comment list</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>action_add</source>
+                <target>Add</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source> message.deleted_successfully</source>
+                <target>Deleted successfully</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>title_Comments_details</source>
+                <target>Comment details</target>
+            </trans-unit>
+            <trans-unit id="38">
+                <source>title_home</source>
+                <target>Home</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>title_User_edit</source>
+                <target>Edit your data</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>label_first_name</source>
+                <target>First name</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>label_last_name</source>
+                <target>Surname</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>label_birth_year</source>
+                <target>Birthday</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source> label_new_password</source>
+                <target>New password</target>
+            </trans-unit>
+            <trans-unit id="44">
+                <source>label_new_password_repeated</source>
+                <target>Repeat new password</target>
+            </trans-unit>
+            <trans-unit id="45">
+                <source>message_created_successfully</source>
+                <target>Created successfully</target>
+            </trans-unit>
+            <trans-unit id="46">
+                <source>invalid_message</source>
+                <target>Passwords must match</target>
+            </trans-unit>
+            <trans-unit id="47">
+                <source>Year</source>
+                <target>Year</target>
+            </trans-unit>
+            <trans-unit id="48">
+                <source>Month</source>
+                <target>Month</target>
+            </trans-unit>
+            <trans-unit id="49">
+                <source>Day</source>
+                <target>Day</target>
+            </trans-unit>
+            <trans-unit id="50">
+                <source>Email could not be found.</source>
+                <target>Email could not be found.</target>
+            </trans-unit>
+            <trans-unit id="label_view">
+                <source>label_view</source>
+                <target>Widok</target>
+            </trans-unit>
+            <trans-unit id="title_Photos_details">
+                <source>title_Photos_details</source>
+                <target>Szczegóły zdjęcia</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

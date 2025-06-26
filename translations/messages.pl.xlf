@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="pl" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="label_actions">
+                <source>label_actions</source>
+                <target>Działania</target>
+            </trans-unit>
+            <trans-unit id="label_id">
+                <source>label_id</source>
+                <target>Id</target>
+            </trans-unit>
+            <trans-unit id="label_title">
+                <source>label_title</source>
+                <target>Tytuł</target>
+            </trans-unit>
+            <trans-unit id="label_content">
+                <source>label_content</source>
+                <target>Treść</target>
+            </trans-unit>
+            <trans-unit id="label_tags">
+                <source>label_tags</source>
+                <target>Tagi</target>
+            </trans-unit>
+            <trans-unit id="message_empty_list">
+                <source>message_empty_list</source>
+                <target>Pusta lista</target>
+            </trans-unit>
+            <trans-unit id="title_record_list">
+                <source>title_record_list</source>
+                <target>Galeria zdjęć</target>
+            </trans-unit>
+            <trans-unit id="label_view">
+                <source>label_view</source>
+                <target>Zobacz</target>
+            </trans-unit>
+            <trans-unit id="title_record_details">
+                <source>title_record_details</source>
+                <target>Zdjęcie #%id%</target>
+            </trans-unit>
+            <trans-unit id="0">
+                <source>title_Photos_list</source>
+                <target>zdjęcia</target>
+            </trans-unit>
+            <trans-unit id="1">
+                <source>label_created_at</source>
+                <target>Data dodania</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>label_updated_at</source>
+                <target>Data aktualizacji</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>label_text</source>
+                <target>Opis</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>action_view</source>
+                <target>Zobacz</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>title_Photos_details</source>
+                <target>Szczegóły</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>title_Galleries_list</source>
+                <target>galerie</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>title_Galleries_details</source>
+                <target>szczegóły</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>action_back_to_list</source>
+                <target>powrót</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>action_back_to_list</source>
+                <target>powrót</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>label_gallery</source>
+                <target>galeria</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>title_Galleries_create</source>
+                <target>Dodaj galerię</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>action_save</source>
+                <target>zapisz</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>button_create</source>
+                <target>Dodaj</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>action_edit</source>
+                <target>Edytuj</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>title_Galleries_edit</source>
+                <target>Edytuj galerie</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>title_Galleries_delete</source>
+                <target>Usuń galerię</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>action_delete</source>
+                <target>Usuń</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>title_Photos_create</source>
+                <target>Dodaj zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>title_Photos_delete</source>
+                <target>Usuń zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>title_Photos_edit</source>
+                <target>Edytuj</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>message.empty_list</source>
+                <target>Lista pusta</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>message_form_error</source>
+                <target>Błąd</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>action_logout</source>
+                <target>Wyloguj</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>action_login</source>
+                <target>Zaloguj</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>label_photo</source>
+                <target>Zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>message_item_not_found</source>
+                <target>Nie znaleziono</target>
+            </trans-unit>
+                <trans-unit id="27">
+                <source>label_upload_photo</source>
+                    <target>Dodaj zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>label_none</source>
+                <target>Nie wybrano galerii</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>message_updated_successfully</source>
+                <target>Pomyślnie zaktualizowano</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>title_Comments_create</source>
+                <target>Dodaj komentarz</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>title_Comments_delete</source>
+                <target>Usuń komentarz</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>label_nick</source>
+                <target>Nick</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>label_email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>title_Comments_list</source>
+                <target>komentarze</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>action_add</source>
+                <target>Dodaj</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>message.deleted_successfully</source>
+                <target>Usunięto pomyślnie</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>title_Comments_details</source>
+                <target>Szczegóły komentarza</target>
+            </trans-unit>
+            <trans-unit id="38">
+                <source>title_home</source>
+                <target>Home</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>title_User_edit</source>
+                <target>Edytuj swoje dane</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>label_first_name</source>
+                <target>Imię</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>label_last_name</source>
+                <target>Nazwisko</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>label_birth_year</source>
+                <target>Data urodzenia</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source>label_new_password</source>
+                <target>Nowe hasło</target>
+            </trans-unit>
+            <trans-unit id="44">
+                <source>label_new_password_repeated</source>
+                <target>Powtórz nowe hasło</target>
+            </trans-unit>
+            <trans-unit id="45">
+                <source>message_created_successfully</source>
+                <target>Pomyślnie dodano</target>
+            </trans-unit>
+            <trans-unit id="46">
+                <source>invalid_message</source>
+                <target>Hasła muszą się zgadzać</target>
+            </trans-unit>
+            <trans-unit id="47">
+                <source>Year</source>
+                <target>Rok</target>
+            </trans-unit>
+            <trans-unit id="48">
+                <source>Month</source>
+                <target>Miesiąc</target>
+            </trans-unit>
+            <trans-unit id="49">
+                <source>Day</source>
+                <target>Dzień</target>
+            </trans-unit>
+            <trans-unit id="50">
+                <source>Email could not be found.</source>
+                <target>Nieprawidłowy email</target>
+            </trans-unit>
+            <trans-unit id="title_Photos_details">
+                <source>title_Photos_details</source>
+                <target>Photo details</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

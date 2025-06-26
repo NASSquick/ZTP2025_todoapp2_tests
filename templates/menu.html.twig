@@ -1,0 +1,31 @@
+<nav id="menu">
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a href="{{ url('Galleries_index') }}"><button type="button" class="btn btn-light">Galerie</button></a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url('Photos_index') }}"><button type="button" class="btn btn-light">Zdjęcia</button></a>
+        </li>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <li class="nav-item">
+                <a href="{{ url('Comments_index') }}"><button type="button" class="btn btn-light">Komentarze</button></a>
+            </li>
+        <li class="nav-item">
+            <a href="{{ url('galleries_create') }}"><button type="button" class="btn btn-light">Stworzyć galerie</button></a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url('photos_create') }}"><button type="button" class="btn btn-light">Dodać zdjęcie</button></a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url('User_edit') }}"><button type="button" class="btn btn-light">Zmień dane</button></a>
+        </li>
+            <li class="nav-item">
+                <a class="btn btn-light" href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="btn btn-light" href="{{ url('app_login') }}">{{ 'action_login'|trans }}</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if Galleries is defined and Galleries is not null %}
+    {{ 'title_Galleries_details'|trans({'%id%': Galleries.id|default('')}) }}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {% if Galleries is defined and Galleries is not null %}
+    <h1>{{ 'title_Galleries_details'|trans({'%id%': Galleries.id|default('')}) }}</h1>
+        <dl class="dl-horizontal">
+            <dt>{{ 'label_id'|trans }}</dt>
+            <dd>{{ Galleries.id }}</dd>
+            <dt>{{ 'label_created_at'|trans }}</dt>
+            <dd>{{ Galleries.createdAt|format_date('long')}}</dd>
+            <dt>{{ 'label_updated_at'|trans }}</dt>
+            <dd>{{ Galleries.updatedAt|format_date('long')}}</dd>
+            <dt>{{ 'label_title'|trans }}</dt>
+            <dd>{{  Galleries.title }}</dd>
+        </dl>
+        {% if Galleries.photos|length %}
+        <div class="row justify-content-around">
+            {% for Photos in Galleries.photos %}
+                <div style="float: left">
+                    <img src="{{ asset('uploads/'~Photos.filename) }}" alt="{{ Photos.filename }}">
+                    <dd>{{  Photos.title }}</dd>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <p>
+            <a href="{{ url('Galleries_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                {{ 'action_back_to_list'|trans }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            {{ 'message_item_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}
