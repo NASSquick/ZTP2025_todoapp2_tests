@@ -11,7 +11,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
@@ -34,17 +33,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     *
+     * @param PasswordAuthenticatedUserInterface $user              the user whose password is being upgraded
+     * @param string                             $newHashedPassword the new hashed password
+     *
+     * @throws UnsupportedUserException if the given user is not a User entity
      */
-    /**
-     * @param UserInterface $user               User
-     * @param string        $newEncodedPassword NewEncodedPassword
-     */
-
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }
+
         $user->setPassword($newHashedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
@@ -53,7 +53,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Save record.
      *
-     * @param User $user Photos entity
+     * @param User $user User entity
      */
     public function save(User $user): void
     {

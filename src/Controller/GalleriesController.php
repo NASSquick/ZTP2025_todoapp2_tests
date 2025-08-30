@@ -1,27 +1,49 @@
 <?php
 
+/**
+ * This file is part of the TODO App project.
+ *
+ * (c) Hlib Ivanov.
+ *
+ * For license information, see the LICENSE file.
+ */
+
 namespace App\Controller;
 
 use App\Entity\Galleries;
 use App\Form\GalleriesType;
 use App\Service\GalleriesService;
-use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Controller responsible for managing galleries.
+ */
 #[Route('/Galleries')]
 class GalleriesController extends AbstractController
 {
     private GalleriesService $galleriesService;
 
+    /**
+     * GalleriesController constructor.
+     *
+     * @param GalleriesService $galleriesService service for handling galleries
+     */
     public function __construct(GalleriesService $galleriesService)
     {
         $this->galleriesService = $galleriesService;
     }
 
+    /**
+     * List all galleries with pagination.
+     *
+     * @param Request $request the HTTP request
+     *
+     * @return Response the response object
+     */
     #[Route('/', name: 'Galleries_index', methods: ['GET'])]
     public function index(Request $request): Response
     {
@@ -32,6 +54,13 @@ class GalleriesController extends AbstractController
         ]);
     }
 
+    /**
+     * Display a single gallery with photos.
+     *
+     * @param int $id the gallery ID
+     *
+     * @return Response the response object
+     */
     #[Route('/{id}', name: 'Galleries_show', methods: ['GET'], requirements: ['id' => '[1-9]\d*'])]
     public function show(int $id): Response
     {
@@ -42,6 +71,13 @@ class GalleriesController extends AbstractController
         ]);
     }
 
+    /**
+     * Create a new gallery.
+     *
+     * @param Request $request the HTTP request
+     *
+     * @return Response the response object
+     */
     #[Route('/create', name: 'galleries_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
@@ -63,6 +99,14 @@ class GalleriesController extends AbstractController
         ]);
     }
 
+    /**
+     * Edit an existing gallery.
+     *
+     * @param Request   $request   the HTTP request
+     * @param Galleries $galleries the gallery entity
+     *
+     * @return Response the response object
+     */
     #[Route('/{id}/edit', name: 'galleries_edit', methods: ['GET', 'PUT'], requirements: ['id' => '[1-9]\d*'])]
     public function edit(Request $request, Galleries $galleries): Response
     {
@@ -84,6 +128,14 @@ class GalleriesController extends AbstractController
         ]);
     }
 
+    /**
+     * Delete a gallery.
+     *
+     * @param Request   $request   the HTTP request
+     * @param Galleries $galleries the gallery entity
+     *
+     * @return Response the response object
+     */
     #[Route('/{id}/delete', name: 'Galleries_delete', methods: ['GET', 'DELETE'], requirements: ['id' => '[1-9]\d*'])]
     public function delete(Request $request, Galleries $galleries): Response
     {

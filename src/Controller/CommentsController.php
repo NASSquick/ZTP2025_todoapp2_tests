@@ -1,31 +1,53 @@
 <?php
 
+/**
+ * This file is part of the TODO App project.
+ *
+ * (c) Hlib Ivanov.
+ *
+ * For license information, see the LICENSE file.
+ */
+
 namespace App\Controller;
 
 use App\Entity\Comments;
 use App\Form\CommentsType;
 use App\Service\CommentsService;
 use App\Service\PhotosService;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Controller responsible for managing comments.
+ */
 #[Route('/Comments')]
 class CommentsController extends AbstractController
 {
     private CommentsService $commentsService;
     private PhotosService $photosService;
 
+    /**
+     * CommentsController constructor.
+     *
+     * @param CommentsService $commentsService service for handling comments
+     * @param PhotosService   $photosService   service for handling photos
+     */
     public function __construct(CommentsService $commentsService, PhotosService $photosService)
     {
         $this->commentsService = $commentsService;
         $this->photosService = $photosService;
     }
 
+    /**
+     * List all comments with pagination.
+     *
+     * @param Request $request the HTTP request
+     *
+     * @return Response the response object
+     */
     #[Route('/', name: 'Comments_index', methods: ['GET'])]
     public function index(Request $request): Response
     {
@@ -36,6 +58,13 @@ class CommentsController extends AbstractController
         ]);
     }
 
+    /**
+     * Display a single comment.
+     *
+     * @param Comments $comments the comment entity
+     *
+     * @return Response the response object
+     */
     #[Route('/{id}', name: 'Comments_show', methods: ['GET'], requirements: ['id' => '[1-9]\d*'])]
     public function show(Comments $comments): Response
     {
@@ -44,6 +73,14 @@ class CommentsController extends AbstractController
         ]);
     }
 
+    /**
+     * Create a new comment for a given photo.
+     *
+     * @param Request $request the HTTP request
+     * @param int     $photoId the photo ID
+     *
+     * @return Response the response object
+     */
     #[Route('/create/{photoId}/photo', name: 'Comments_create', methods: ['GET', 'POST'])]
     public function create(Request $request, int $photoId): Response
     {
@@ -73,6 +110,14 @@ class CommentsController extends AbstractController
         ]);
     }
 
+    /**
+     * Delete a comment.
+     *
+     * @param Request  $request  the HTTP request
+     * @param Comments $comments the comment entity
+     *
+     * @return Response the response object
+     */
     #[Route('/{id}/delete', name: 'Comments_delete', methods: ['GET', 'DELETE'], requirements: ['id' => '[1-9]\d*'])]
     public function delete(Request $request, Comments $comments): Response
     {

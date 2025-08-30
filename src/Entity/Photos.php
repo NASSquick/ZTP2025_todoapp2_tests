@@ -1,10 +1,12 @@
 <?php
 
+/*
+ This work, including the code samples, is licensed under a Creative Commons BY-SA 3.0 license.
+ */
+
 namespace App\Entity;
 
 use App\Repository\PhotosRepository;
-use DateTime;
-use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,67 +15,77 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Photos.
+ *
+ * Represents a photo entity, including title, text, filename, gallery, and comments.
  */
 #[ORM\Entity(repositoryClass: PhotosRepository::class)]
-#[ORM\Table(name: "Photos")]
+#[ORM\Table(name: 'Photos')]
 class Photos
 {
     /**
      * Primary key.
+     *
+     * @var int|null ID of the photo
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: "integer")]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     /**
-     * Created at.
+     * Creation timestamp.
+     *
+     * @var \DateTimeInterface Creation date and time of the photo
      */
-    #[ORM\Column(type: "datetime")]
+    #[ORM\Column(type: 'datetime')]
     #[Gedmo\Timestampable(on: 'create')]
-    private DateTimeInterface $createdAt;
+    private \DateTimeInterface $createdAt;
 
     /**
-     * Updated at.
+     * Update timestamp.
+     *
+     * @var \DateTimeInterface|null Last update date and time of the photo
      */
-    #[ORM\Column(type: "datetime")]
+    #[ORM\Column(type: 'datetime')]
     #[Gedmo\Timestampable(on: 'update')]
-    private ?DateTimeInterface $updatedAt = null;
+    private ?\DateTimeInterface $updatedAt = null;
 
     /**
-     * Title.
+     * Title of the photo.
      */
-    #[ORM\Column(type: "string", length: 64)]
+    #[ORM\Column(type: 'string', length: 64)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 3, max: 64)]
     private ?string $title = null;
 
     /**
-     * Text.
+     * Text description of the photo.
      */
-    #[ORM\Column(type: "string", length: 255, nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 3, max: 255)]
     private ?string $text = null;
 
     /**
-     * Filename.
+     * Filename of the photo.
      */
-    #[ORM\Column(type: "string", length: 191)]
-    #[Assert\Type(type: "string")]
+    #[ORM\Column(type: 'string', length: 191)]
+    #[Assert\Type(type: 'string')]
     private ?string $filename = null;
 
     /**
-     * Gallery this photo belongs to.
+     * Gallery the photo belongs to.
      */
-    #[ORM\ManyToOne(targetEntity: Galleries::class, inversedBy: "photos")]
-    #[ORM\JoinColumn(name: "gallery_id", referencedColumnName: "id")]
+    #[ORM\ManyToOne(targetEntity: Galleries::class, inversedBy: 'photos')]
+    #[ORM\JoinColumn(name: 'gallery_id', referencedColumnName: 'id')]
     private ?Galleries $gallery = null;
 
     /**
      * Comments related to this photo.
+     *
+     * @var Collection<int, Comments> Collection of Comments objects
      */
-    #[ORM\OneToMany(targetEntity: Comments::class, mappedBy: "photos", cascade: ["remove"])]
+    #[ORM\OneToMany(targetEntity: Comments::class, mappedBy: 'photos', cascade: ['remove'])]
     private Collection $comments;
 
     /**
@@ -81,12 +93,14 @@ class Photos
      */
     public function __construct()
     {
-        $this->createdAt = new DateTime();
+        $this->createdAt = new \DateTime();
         $this->comments = new ArrayCollection();
     }
 
     /**
-     * Getter for Id.
+     * Get the photo ID.
+     *
+     * @return int|null ID of the photo
      */
     public function getId(): ?int
     {
@@ -94,39 +108,57 @@ class Photos
     }
 
     /**
-     * Getter for Created At.
+     * Get the creation timestamp.
+     *
+     * @return \DateTimeInterface Creation date and time of the photo
      */
-    public function getCreatedAt(): ?DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
     /**
-     * Setter for Created at.
+     * Set the creation timestamp.
+     *
+     * @param \DateTimeInterface $createdAt Creation date and time
+     *
+     * @return self Returns the current Photos instance
      */
-    public function setCreatedAt(DateTimeInterface $createdAt): void
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     /**
-     * Getter for Updated at.
+     * Get the update timestamp.
+     *
+     * @return \DateTimeInterface|null Last update date and time of the photo
      */
-    public function getUpdatedAt(): ?DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
     /**
-     * Setter for Updated at.
+     * Set the update timestamp.
+     *
+     * @param \DateTimeInterface $updatedAt Last update date and time
+     *
+     * @return self Returns the current Photos instance
      */
-    public function setUpdatedAt(DateTimeInterface $updatedAt): void
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 
     /**
-     * Getter for Title.
+     * Get the photo title.
+     *
+     * @return string|null Title of the photo
      */
     public function getTitle(): ?string
     {
@@ -134,15 +166,23 @@ class Photos
     }
 
     /**
-     * Setter for Title.
+     * Set the photo title.
+     *
+     * @param string $title Title of the photo
+     *
+     * @return self Returns the current Photos instance
      */
-    public function setTitle(string $title): void
+    public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**
-     * Getter for Text.
+     * Get the photo text description.
+     *
+     * @return string|null Text description of the photo
      */
     public function getText(): ?string
     {
@@ -150,15 +190,23 @@ class Photos
     }
 
     /**
-     * Setter for Text.
+     * Set the photo text description.
+     *
+     * @param string|null $text Text description of the photo
+     *
+     * @return self Returns the current Photos instance
      */
-    public function setText(?string $text): void
+    public function setText(?string $text): self
     {
         $this->text = $text;
+
+        return $this;
     }
 
     /**
-     * Getter for Gallery.
+     * Get the gallery.
+     *
+     * @return Galleries|null Gallery entity the photo belongs to
      */
     public function getGallery(): ?Galleries
     {
@@ -166,15 +214,23 @@ class Photos
     }
 
     /**
-     * Setter for Gallery.
+     * Set the gallery.
+     *
+     * @param Galleries|null $gallery Gallery entity
+     *
+     * @return self Returns the current Photos instance
      */
-    public function setGallery(?Galleries $gallery): void
+    public function setGallery(?Galleries $gallery): self
     {
         $this->gallery = $gallery;
+
+        return $this;
     }
 
     /**
-     * Getter for Filename.
+     * Get the filename.
+     *
+     * @return string|null Filename of the photo
      */
     public function getFilename(): ?string
     {
@@ -182,15 +238,23 @@ class Photos
     }
 
     /**
-     * Setter for Filename.
+     * Set the filename.
+     *
+     * @param string $filename Filename of the photo
+     *
+     * @return self Returns the current Photos instance
      */
-    public function setFilename(string $filename): void
+    public function setFilename(string $filename): self
     {
         $this->filename = $filename;
+
+        return $this;
     }
 
     /**
-     * Getter for Comments.
+     * Get all comments for this photo.
+     *
+     * @return Collection<int, Comments> Collection of Comment entities
      */
     public function getComments(): Collection
     {
@@ -198,7 +262,11 @@ class Photos
     }
 
     /**
-     * Add Comment.
+     * Add a comment to the photo.
+     *
+     * @param Comments $comment Comment entity to add
+     *
+     * @return self Returns the current Photos instance
      */
     public function addComment(Comments $comment): self
     {
@@ -211,7 +279,11 @@ class Photos
     }
 
     /**
-     * Remove Comment.
+     * Remove a comment from the photo.
+     *
+     * @param Comments $comment Comment entity to remove
+     *
+     * @return self Returns the current Photos instance
      */
     public function removeComment(Comments $comment): self
     {

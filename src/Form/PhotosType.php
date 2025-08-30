@@ -93,11 +93,14 @@ class PhotosType extends AbstractType
     /**
      * Configures the options for this type.
      *
-     * @param OptionsResolver $resolver
+     * @param OptionsResolver $resolver the options resolver
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Photos::class, 'required' => true]);
+        $resolver->setDefaults([
+            'data_class' => Photos::class,
+            'required'   => true,
+        ]);
     }
 
     /**

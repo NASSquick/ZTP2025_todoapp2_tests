@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the TODO App project.
+ *
+ * (c) Hlib Ivanov
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -7,16 +16,23 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Class SecurityController.
+ *
+ * Handles login and logout actions.
+ */
 class SecurityController extends AbstractController
 {
+    /**
+     * Displays the login form and handles login submission.
+     *
+     * @param AuthenticationUtils $authenticationUtils The authentication utility service
+     *
+     * @return Response The HTTP response object
+     */
     #[Route('/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        //if ($this->getUser()) {
-            //Redirect logged-in users to a public or authorized page, e.g., homepage
-            //return $this->redirectToRoute('index');  // adjust route name accordingly
-        //}
-
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -26,6 +42,9 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    /**
+     * Handles user logout.
+     */
     #[Route('/logout', name: 'app_logout')]
     public function logout(): void
     {

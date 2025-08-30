@@ -19,24 +19,22 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Photos|null findOneBy(array $criteria, array $orderBy = null)
  * @method Photos[]    findAll()
  * @method Photos[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- * @method             findOneById(int $id)
  */
 class PhotosRepository extends ServiceEntityRepository
 {
     /**
      * Items per page.
      *
-     * Use constants to define configuration options that rarely change instead
-     * of specifying them in app/config/config.yml.
-     * See https://symfony.com/doc/current/best_practices.html#configuration
-     *
      * @constant int
      */
+    private const PAGINATOR_PER_PAGE = 10;
 
     /**
      * PhotosRepository constructor.
      *
-     * @param ManagerRegistry $registry
+     * @param ManagerRegistry $registry The manager registry
+     *
+     * @return void
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -55,9 +53,11 @@ class PhotosRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param int $id
+     * Get one photo with its comments.
      *
-     * @return Photos|null
+     * @param int $id Photo ID
+     *
+     * @return Photos|null The photo entity or null if not found
      *
      * @throws NonUniqueResultException
      */
@@ -67,16 +67,15 @@ class PhotosRepository extends ServiceEntityRepository
             ->select('Photos', 'comments')
             ->leftJoin('Photos.comments', 'comments')
             ->where('Photos.id = :id')
-            ->setParameter('id', $id)
-        ;
+            ->setParameter('id', $id);
 
         return $qb->getQuery()->getOneOrNullResult();
     }
 
     /**
-     * Save record.
+     * Save a photo entity.
      *
-     * @param Photos $photos
+     * @param Photos $photos The photo entity to save
      */
     public function save(Photos $photos): void
     {
@@ -85,9 +84,9 @@ class PhotosRepository extends ServiceEntityRepository
     }
 
     /**
-     * Delete record.
+     * Delete a photo entity.
      *
-     * @param Photos $photos
+     * @param Photos $photos The photo entity to delete
      */
     public function delete(Photos $photos): void
     {
@@ -102,6 +101,6 @@ class PhotosRepository extends ServiceEntityRepository
      */
     private function getOrCreateQueryBuilder(): QueryBuilder
     {
-        return null ?? $this->createQueryBuilder('Photos');
+        return $this->createQueryBuilder('Photos');
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Comments repository.
  */
@@ -47,7 +48,7 @@ class CommentsRepository extends ServiceEntityRepository
     /**
      * Save record.
      *
-     * @param \App\Entity\Comments $comments Comments entity
+     * @param Comments $comments Comments entity
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -61,7 +62,7 @@ class CommentsRepository extends ServiceEntityRepository
     /**
      * Delete record.
      *
-     * @param \App\Entity\Comments $comments Comments entity
+     * @param Comments $comments Comments entity
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -75,7 +76,7 @@ class CommentsRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     public function queryAll(): QueryBuilder
     {
@@ -86,11 +87,11 @@ class CommentsRepository extends ServiceEntityRepository
     /**
      * Get or create new query builder.
      *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
+     * @param QueryBuilder|null $queryBuilder Query builder
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    private function getOrCreateQueryBuilder(?QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('Comments');
     }

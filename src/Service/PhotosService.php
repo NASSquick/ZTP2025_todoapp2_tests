@@ -6,10 +6,8 @@
 
 namespace App\Service;
 
-use App\Service\TaskServiceInterface;
 use App\Entity\Photos;
 use App\Repository\PhotosRepository;
-use DateTime;
 use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -17,23 +15,23 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class PhotosService.
+ *
+ * Provides methods to manage Photos entities.
  */
 class PhotosService implements TaskServiceInterface
 {
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
     private PhotosRepository $photosRepository;
-
     private PaginatorInterface $paginator;
-
     private FileUploader $fileUploader;
 
     /**
-     * PhotosController constructor.
+     * PhotosService constructor.
      *
      * @param PhotosRepository   $photosRepository Photos repository
-     * @param PaginatorInterface $paginator        paginator interface
-     * @param FileUploader       $fileUploader
+     * @param PaginatorInterface $paginator        Paginator service
+     * @param FileUploader       $fileUploader     File uploader service
      */
     public function __construct(PhotosRepository $photosRepository, PaginatorInterface $paginator, FileUploader $fileUploader)
     {
@@ -43,11 +41,11 @@ class PhotosService implements TaskServiceInterface
     }
 
     /**
-     * CreatePaginatedList.
+     * Create a paginated list of Photos.
      *
-     * @param int $page
+     * @param int $page Page number
      *
-     * @return PaginationInterface
+     * @return PaginationInterface Paginated list of photos
      */
     public function createPaginatedList(int $page): PaginationInterface
     {
@@ -59,9 +57,11 @@ class PhotosService implements TaskServiceInterface
     }
 
     /**
-     * @param int $id id
+     * Get a single Photos entity by ID.
      *
-     * @return Photos|null
+     * @param int $id Photo ID
+     *
+     * @return Photos|null The Photos entity or null if not found
      */
     public function getOne(int $id): ?Photos
     {
@@ -69,9 +69,11 @@ class PhotosService implements TaskServiceInterface
     }
 
     /**
-     * @param int $id
+     * Get a single Photos entity with its comments.
      *
-     * @return Photos|null
+     * @param int $id Photo ID
+     *
+     * @return Photos|null The Photos entity with comments, or null if not found
      *
      * @throws NonUniqueResultException
      */
@@ -81,26 +83,26 @@ class PhotosService implements TaskServiceInterface
     }
 
     /**
-     * Save.
+     * Save a Photos entity and optionally upload a file.
      *
-     * @param Photos            $photos
-     * @param UploadedFile|null $file
+     * @param Photos            $photos Photos entity
+     * @param UploadedFile|null $file   Optional uploaded file
      */
-    public function save(Photos $photos, UploadedFile $file = null): void
+    public function save(Photos $photos, ?UploadedFile $file = null): void
     {
         if ($file) {
             $filename = $this->fileUploader->upload($file);
             $photos->setFilename($filename);
         }
 
-        $photos->setUpdatedAt(new DateTime());
+        $photos->setUpdatedAt(new \DateTime());
         $this->photosRepository->save($photos);
     }
 
     /**
-     * Delete.
+     * Delete a Photos entity.
      *
-     * @param Photos $photos
+     * @param Photos $photos Photos entity
      */
     public function delete(Photos $photos): void
     {

@@ -21,8 +21,8 @@ class UserService
     /**
      * UserService constructor.
      *
-     * @param UserRepository                 $userRepository  UserRepository
-     * @param UserPasswordHasherInterface   $passwordHasher  Password hasher
+     * @param UserRepository              $userRepository UserRepository
+     * @param UserPasswordHasherInterface $passwordHasher Password hasher
      */
     public function __construct(UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher)
     {
@@ -31,10 +31,10 @@ class UserService
     }
 
     /**
-     * Save.
+     * Save a user entity and optionally hash a new plain password.
      *
-     * @param User        $user
-     * @param string|null $plainPassword
+     * @param User        $user          The user entity to save
+     * @param string|null $plainPassword The plain password to hash, if any
      */
     public function save(User $user, ?string $plainPassword): void
     {

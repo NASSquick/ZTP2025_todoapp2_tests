@@ -22,17 +22,17 @@ class Photosfixtures extends AbstractBaseFixtures implements DependentFixtureInt
     public function loadData(ObjectManager $manager): void
     {
         // $this->createMany(100, 'Photos', function ($i) {
-             //   $photos = new Photos();
-              //  $photos->setTitle($this->faker->sentence);
-               // $photos->setText($this->faker->sentence);
-              //  $photos->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
-              //  $photos->setUpdatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
+        //   $photos = new Photos();
+        //  $photos->setTitle($this->faker->sentence);
+        // $photos->setText($this->faker->sentence);
+        //  $photos->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
+        //  $photos->setUpdatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
 
-              //  $photos->setGalleries($this->getRandomReference('Galleries'));
+        //  $photos->setGalleries($this->getRandomReference('Galleries'));
 
-               // return $photos;
-       // });
-     //   $manager->flush();
+        // return $photos;
+        // });
+        //   $manager->flush();
     }
 
     /**

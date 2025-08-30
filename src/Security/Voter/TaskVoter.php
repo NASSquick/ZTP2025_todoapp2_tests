@@ -1,5 +1,9 @@
 <?php
 
+/*
+ This work, including the code samples, is licensed under a Creative Commons BY-SA 3.0 license.
+ */
+
 namespace App\Security\Voter;
 
 use App\Entity\Comments;
@@ -10,6 +14,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class TaskVoter.
+ *
+ * Handles authorization logic for tasks/comments.
  */
 class TaskVoter extends Voter
 {
@@ -18,12 +24,12 @@ class TaskVoter extends Voter
     public const VIEW = 'view';
     public const DELETE = 'delete';
 
-    private Security $security; // <-- declare property here
+    private Security $security;
 
     /**
-     * Constructor.
+     * TaskVoter constructor.
      *
-     * @param Security $security
+     * @param Security $security Symfony Security service
      */
     public function __construct(Security $security)
     {
@@ -31,29 +37,34 @@ class TaskVoter extends Voter
     }
 
     /**
-     * Supports function.
+     * Determines if the voter supports a given attribute and subject.
      *
-     * @param string $attribute
-     * @param mixed  $subject
+     * @param string $attribute The attribute to check (e.g., 'create', 'edit')
+     * @param mixed  $subject   The subject of the authorization (e.g., Comments entity)
      *
-     * @return bool
+     * @return bool True if this voter supports the attribute and subject
      */
-    protected function supports($attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
-        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE, self::CREATE]);
+        return in_array($attribute, [
+            self::EDIT,
+            self::VIEW,
+            self::DELETE,
+            self::CREATE,
+        ]);
         // && $subject instanceof Comments;  // Uncomment and customize as needed
     }
 
     /**
-     * Vote on attribute.
+     * Performs the authorization logic for a supported attribute.
      *
-     * @param string          $attribute
-     * @param mixed           $subject
-     * @param TokenInterface  $token
+     * @param string         $attribute The attribute to check
+     * @param mixed          $subject   The subject of the authorization
+     * @param TokenInterface $token     Security token
      *
-     * @return bool
+     * @return bool True if access is granted, false otherwise
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 

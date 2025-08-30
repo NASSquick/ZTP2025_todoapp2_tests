@@ -25,10 +25,6 @@ class GalleriesRepository extends ServiceEntityRepository
     /**
      * Items per page.
      *
-     * Use constants to define configuration options that rarely change instead
-     * of specifying them in app/config/config.yml.
-     * See https://symfony.com/doc/current/best_practices.html#configuration
-     *
      * @constant int
      */
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
@@ -36,7 +32,7 @@ class GalleriesRepository extends ServiceEntityRepository
     /**
      * GalleriesRepository constructor.
      *
-     * @param ManagerRegistry $registry
+     * @param ManagerRegistry $registry the manager registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -44,9 +40,9 @@ class GalleriesRepository extends ServiceEntityRepository
     }
 
     /**
-     * Save record.
+     * Save a gallery entity.
      *
-     * @param Galleries $galleries
+     * @param Galleries $galleries the gallery entity
      */
     public function save(Galleries $galleries): void
     {
@@ -55,9 +51,9 @@ class GalleriesRepository extends ServiceEntityRepository
     }
 
     /**
-     * Delete record.
+     * Delete a gallery entity.
      *
-     * @param Galleries $galleries
+     * @param Galleries $galleries the gallery entity
      */
     public function delete(Galleries $galleries): void
     {
@@ -66,9 +62,9 @@ class GalleriesRepository extends ServiceEntityRepository
     }
 
     /**
-     * Query all records.
+     * Query all galleries.
      *
-     * @return QueryBuilder
+     * @return QueryBuilder query builder
      */
     public function queryAll(): QueryBuilder
     {
@@ -77,33 +73,32 @@ class GalleriesRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get or create new query builder.
+     * Get one gallery with its photos.
      *
-     * @param int|null $id
+     * @param int|null $id Gallery ID
      *
-     * @return float|int|mixed|string|null
+     * @return Galleries|null The gallery entity or null if not found
      *
      * @throws NonUniqueResultException
      */
-    public function getOneWithPhotos(int $id = null)
+    public function getOneWithPhotos(?int $id = null): ?Galleries
     {
         $qb = $this->createQueryBuilder('Galleries')
             ->select('Galleries', 'Photos')
             ->leftJoin('Galleries.photos', 'Photos')
             ->where('Galleries.id = :id')
-            ->setParameter('id', $id)
-        ;
+            ->setParameter('id', $id);
 
         return $qb->getQuery()->getOneOrNullResult();
     }
 
     /**
-     * Get or create new query builder.
+     * Get or create a query builder.
      *
-     * @return QueryBuilder Query builder
+     * @return QueryBuilder query builder
      */
     public function getOrCreateQueryBuilder(): QueryBuilder
     {
-        return null ?? $this->createQueryBuilder('Galleries');
+        return $this->createQueryBuilder('Galleries');
     }
 }

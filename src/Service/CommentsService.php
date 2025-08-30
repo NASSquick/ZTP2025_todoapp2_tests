@@ -1,12 +1,11 @@
 <?php
 
 /**
- * CommentsService.
+ * Comments service.
  */
 
 namespace App\Service;
 
-use App\Service\TaskServiceInterface;
 use App\Entity\Comments;
 use App\Repository\CommentsRepository;
 use Doctrine\ORM\OptimisticLockException;
@@ -17,22 +16,20 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class CommentsService.
  *
- * @param $commentsRepository
- * @param $paginator
+ * Provides methods to manage Comments entities.
  */
 class CommentsService implements TaskServiceInterface
 {
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
     private CommentsRepository $commentsRepository;
-
     private PaginatorInterface $paginator;
 
     /**
      * CommentsService constructor.
      *
-     * @param CommentsRepository $commentsRepository
-     * @param PaginatorInterface $paginator
+     * @param CommentsRepository $commentsRepository Repository for comments
+     * @param PaginatorInterface $paginator          Paginator service
      */
     public function __construct(CommentsRepository $commentsRepository, PaginatorInterface $paginator)
     {
@@ -41,9 +38,11 @@ class CommentsService implements TaskServiceInterface
     }
 
     /**
-     * @param int $page
+     * Create a paginated list of comments.
      *
-     * @return PaginationInterface
+     * @param int $page Page number
+     *
+     * @return PaginationInterface Paginated list of comments
      */
     public function createPaginatedList(int $page): PaginationInterface
     {
@@ -55,7 +54,9 @@ class CommentsService implements TaskServiceInterface
     }
 
     /**
-     * @param Comments $comment
+     * Save a comment entity.
+     *
+     * @param Comments $comment The comment entity to save
      *
      * @throws OptimisticLockException
      * @throws ORMException
@@ -66,7 +67,9 @@ class CommentsService implements TaskServiceInterface
     }
 
     /**
-     * @param Comments $comment
+     * Delete a comment entity.
+     *
+     * @param Comments $comment The comment entity to delete
      *
      * @throws ORMException
      * @throws OptimisticLockException
