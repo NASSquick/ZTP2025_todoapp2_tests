@@ -54,7 +54,10 @@ class Photos
      * Title of the photo.
      */
     #[ORM\Column(type: 'string', length: 64)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(
+        message: 'Photo title is required.',
+        normalizer: 'trim'
+    )]
     #[Assert\Length(min: 3, max: 64)]
     private ?string $title = null;
 
@@ -62,7 +65,10 @@ class Photos
      * Text description of the photo.
      */
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(
+        message: 'Photo description is required.',
+        normalizer: 'trim'
+    )]
     #[Assert\Length(min: 3, max: 255)]
     private ?string $text = null;
 

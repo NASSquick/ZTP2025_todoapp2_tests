@@ -1,3 +1,27 @@
 doctrine:
   dbal:
-    use_savepoints: true
+    url: '%env(resolve:DATABASE_URL)%'
+    server_version: '8.0.25'
+    options:
+      use_savepoints: true
+
+  orm:
+    default_entity_manager: default
+    enable_lazy_ghost_objects: true
+    auto_generate_proxy_classes: true
+    controller_resolver:
+      auto_mapping: false
+    entity_managers:
+      default:
+        connection: default
+        auto_mapping: true
+        mappings:
+          App:
+            is_bundle: false
+            type: attribute
+            dir: '%kernel.project_dir%/src/Entity'
+            prefix: 'App\Entity'
+            alias: App
+        metadata_cache_driver: null
+        query_cache_driver: null
+        result_cache_driver: null

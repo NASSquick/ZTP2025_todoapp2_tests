@@ -1,0 +1,6 @@
+services:
+  App\Doctrine\TablePrefixNamingStrategy:
+    arguments:
+      $prefix: 'test_'
+    tags:
+      - { name: doctrine.orm.naming_strategy, manager: default }

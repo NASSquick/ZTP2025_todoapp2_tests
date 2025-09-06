@@ -61,7 +61,7 @@ class PhotosType extends AbstractType
                 'label' => 'label_title',
                 'empty_data' => '',
                 'required' => true,
-                // fixed attribute key, should be 'maxlength'
+                'trim' => true,        // trim whitespace
                 'attr' => ['maxlength' => 255],
             ]
         );
@@ -71,7 +71,7 @@ class PhotosType extends AbstractType
             [
                 'label' => 'label_text',
                 'required' => true,
-                // fixed attribute key, should be 'maxlength'
+                'trim' => true,        // trim whitespace
                 'attr' => ['maxlength' => 255],
             ]
         );

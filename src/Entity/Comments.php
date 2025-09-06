@@ -9,6 +9,7 @@ namespace App\Entity;
 use App\Repository\CommentsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Comments.
@@ -19,6 +20,18 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Comments
 {
     use TimestampableEntity;
+
+    /**
+     * Comments constructor.
+     *
+     * Initializes fields with empty strings to avoid null values.
+     */
+    public function __construct()
+    {
+        $this->text = '';
+        $this->nick = '';
+        $this->email = '';
+    }
 
     /**
      * Primary key.
@@ -34,18 +47,31 @@ class Comments
      * Email of the comment author.
      */
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(
+        message: 'Email is required.',
+        normalizer: 'trim'
+    )]
+    #[Assert\Email(message: 'Please provide a valid email address.')]
     private ?string $email = null;
 
     /**
      * Nickname of the comment author.
      */
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(
+        message: 'Nickname is required.',
+        normalizer: 'trim'
+    )]
     private ?string $nick = null;
 
     /**
      * Text of the comment.
      */
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(
+        message: 'Comment text is required.',
+        normalizer: 'trim'
+    )]
     private ?string $text = null;
 
     /**

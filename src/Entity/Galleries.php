@@ -59,7 +59,10 @@ class Galleries
      */
     #[ORM\Column(type: 'string', length: 64)]
     #[Assert\Type(type: 'string')]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(
+        message: 'Gallery title is required.',
+        normalizer: 'trim'   // trims whitespace before validation
+    )]
     #[Assert\Length(min: 3, max: 64)]
     private ?string $title = null;
 

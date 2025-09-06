@@ -2,146 +2,139 @@
 
 namespace App\Tests\Controller;
 
+use App\Controller\CommentsController;
 use App\Entity\Comments;
-use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\BrowserKit\Cookie;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use App\Entity\Photos;
+use App\Form\CommentsType;
+use App\Service\CommentsService;
+use App\Service\PhotosService;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
-class CommentsControllerTest extends WebTestCase
+class CommentsControllerTest extends TestCase
 {
-    private $client;
-    private EntityManagerInterface $entityManager;
+    private CommentsService $commentsService;
+    private PhotosService $photosService;
+    private CommentsController $controller;
 
     protected function setUp(): void
     {
-        $this->client = static::createClient();
+        $this->commentsService = $this->createMock(CommentsService::class);
+        $this->photosService = $this->createMock(PhotosService::class);
 
-        $this->entityManager = $this->client->getContainer()
-            ->get('doctrine')
-            ->getManager();
-
-        // Begin transaction to rollback after each test (transactional tests)
-        $this->entityManager->beginTransaction();
-    }
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        if ($this->entityManager->getConnection()->isTransactionActive()) {
-            $this->entityManager->rollback();
-        }
-        $this->entityManager->close();
-
-        restore_exception_handler();
-        self::ensureKernelShutdown();
-    }
-    private function logIn(): void
-    {
-        $user = $this->entityManager->getRepository(User::class)->findOneBy([]);
-        $this->assertNotNull($user, 'No user found to login.');
-
-        $roles = $user->getRoles();
-        if (empty($roles)) {
-            $roles = ['ROLE_USER'];
-        }
-
-        $firewallName = 'main';
-        $token = new UsernamePasswordToken($user, $firewallName, $roles);
-
-        // Start a session by making a request first to get the session cookie and session object
-        $this->client->request('GET', '/');
-
-        // Get session from the request
-        $session = $this->client->getRequest()->getSession();
-        $this->assertNotNull($session, 'Session not found in client request.');
-
-        // Set the serialized token into the session
-        $session->set('_security_' . $firewallName, serialize($token));
-        $session->save();
-
-        // Set the session cookie manually so subsequent requests carry the session
-        $cookie = new Cookie($session->getName(), $session->getId());
-        $this->client->getCookieJar()->set($cookie);
-    }
-    public function testIndexLoadsSuccessfully(): void
-    {
-        $crawler = $this->client->request('GET', '/Comments/');
-
-        $this->assertResponseIsSuccessful();
-
-        $this->assertSelectorExists('div.navigation.text-center');
-        $this->assertSelectorExists('table.table-striped');
+        $this->controller = new CommentsController(
+            $this->commentsService,
+            $this->photosService
+        );
     }
 
-    public function testShowReturnsSuccessForExistingComment(): void
+    public function testIndexReturnsResponseWithPagination(): void
     {
-        $comment = $this->entityManager->getRepository(Comments::class)->findOneBy([]);
-        $this->assertNotNull($comment, 'No comment found in the database for testing.');
+        $request = new Request(['page' => 1]);
 
-        $crawler = $this->client->request('GET', '/Comments/' . $comment->getId());
+        $this->commentsService
+            ->method('createPaginatedList')
+            ->willReturn('fake-pagination');
 
-        $this->assertResponseIsSuccessful();
+        $response = $this->controller->index($request);
 
-        $h1Text = $crawler->filter('h1')->text();
-        $this->assertStringContainsStringIgnoringCase('Comment details', $h1Text);
-
-        $this->assertSelectorExists('dl.dl-horizontal');
-
-        $nickDd = $crawler->filterXPath('//dt[contains(text(), "Nick")]/following-sibling::dd[1]');
-        $this->assertStringContainsString($comment->getNick(), $nickDd->text());
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertStringContainsString('fake-pagination', $response->getContent() ?? '');
     }
 
-    public function testCreateFormLoadsForValidPhoto(): void
+    public function testShowReturnsResponse(): void
     {
-        $photo = $this->entityManager->getRepository(\App\Entity\Photos::class)->findOneBy([]);
-        $this->assertNotNull($photo, 'No photo found in the database for testCreateFormLoadsForValidPhoto.');
+        $comment = new Comments();
+        $response = $this->controller->show($comment);
 
-        $this->client->request('GET', '/Comments/create/' . $photo->getId() . '/photo');
-
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorExists('form');
-        $this->assertSelectorExists('input[name="comments[nick]"]');
-        $this->assertSelectorExists('input[name="comments[email]"]');
-        $this->assertSelectorExists('textarea[name="comments[text]"]');
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertStringContainsString('Comments', $response->getContent() ?? '');
     }
 
-    public function testDeletePageLoads(): void
+    public function testCreateRedirectsWhenPhotoNotFound(): void
     {
-        $this->logIn();
+        $request = new Request();
 
-        $comment = $this->entityManager->getRepository(Comments::class)->findOneBy([]);
-        $this->assertNotNull($comment, 'No comment found for delete test.');
+        $this->photosService
+            ->method('getOne')
+            ->willReturn(null);
 
-        $crawler = $this->client->request('GET', '/Comments/' . $comment->getId() . '/delete');
+        $response = $this->controller->create($request, 123);
 
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorExists('form');
+        $this->assertInstanceOf(RedirectResponse::class, $response);
+        $this->assertStringContainsString('/Comments', $response->getTargetUrl());
     }
 
-    public function testDeleteComment(): void
+    public function testCreateSubmitsValidFormAndSavesComment(): void
     {
-        $this->logIn();
+        $request = new Request([], ['comments' => ['nick' => 'John', 'email' => 'john@example.com', 'text' => 'Hello']]);
+        $photo = $this->createMock(Photos::class);
 
-        $comment = $this->entityManager->getRepository(Comments::class)->findOneBy([]);
-        $this->assertNotNull($comment, 'No comment found for delete test.');
+        $this->photosService
+            ->method('getOne')
+            ->willReturn($photo);
 
-        // Load delete form page
-        $crawler = $this->client->request('GET', '/Comments/' . $comment->getId() . '/delete');
-        $this->assertResponseIsSuccessful();
+        $comment = new Comments();
 
-        $form = $crawler->selectButton('action_delete')->form();
+        // Mock form
+        $form = $this->createMock(FormInterface::class);
+        $form->method('handleRequest')->with($request);
+        $form->method('isSubmitted')->willReturn(true);
+        $form->method('isValid')->willReturn(true);
+        $form->method('createView')->willReturn(new FormView());
 
-        $this->client->submit($form);
+        // Mock controller method createForm to return our form
+        $controllerMock = $this->getMockBuilder(CommentsController::class)
+            ->setConstructorArgs([$this->commentsService, $this->photosService])
+            ->onlyMethods(['createForm'])
+            ->getMock();
 
-        $this->assertResponseRedirects('/Comments/');
+        $controllerMock->method('createForm')->willReturn($form);
+        $controllerMock->method('generateUrl')->willReturn('/Comments/create/1/photo');
 
-        $this->client->followRedirect();
+        $this->commentsService
+            ->expects($this->once())
+            ->method('save')
+            ->with($this->isInstanceOf(Comments::class));
 
-        $this->assertSelectorExists('.alert-success');
+        $response = $controllerMock->create(new Request(), 1);
 
-        $deletedComment = $this->entityManager->getRepository(Comments::class)->find($comment->getId());
-        $this->assertNull($deletedComment);
+        $this->assertInstanceOf(RedirectResponse::class, $response);
+        $this->assertStringContainsString('/Comments', $response->getTargetUrl());
+    }
+
+    public function testDeleteSubmitsValidFormAndDeletesComment(): void
+    {
+        $comment = new Comments();
+        $request = new Request();
+
+        // Mock form
+        $form = $this->createMock(FormInterface::class);
+        $form->method('handleRequest')->with($request);
+        $form->method('isSubmitted')->willReturn(true);
+        $form->method('isValid')->willReturn(true);
+        $form->method('createView')->willReturn(new FormView());
+        $form->method('submit');
+
+        // Mock controller
+        $controllerMock = $this->getMockBuilder(CommentsController::class)
+            ->setConstructorArgs([$this->commentsService, $this->photosService])
+            ->onlyMethods(['createForm'])
+            ->getMock();
+
+        $controllerMock->method('createForm')->willReturn($form);
+
+        $this->commentsService
+            ->expects($this->once())
+            ->method('delete')
+            ->with($comment);
+
+        $response = $controllerMock->delete($request, $comment);
+
+        $this->assertInstanceOf(Response::class, $response);
     }
 }

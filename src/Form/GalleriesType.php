@@ -36,7 +36,7 @@ class GalleriesType extends AbstractType
             [
                 'label' => 'label_title',
                 'required' => true,
-                // Corrected attribute key, should be 'maxlength' not 'max_length => 64' string
+                'trim' => true, // trim whitespace before submission
                 'attr' => ['maxlength' => 64],
             ]
         );

@@ -65,7 +65,7 @@ class PhotosService implements TaskServiceInterface
      */
     public function getOne(int $id): ?Photos
     {
-        return $this->photosRepository->findOneById($id);
+        return $this->photosRepository->find($id);
     }
 
     /**

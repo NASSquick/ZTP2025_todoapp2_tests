@@ -16,6 +16,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class CommentsType.
+ *
+ * Defines the form used for creating and editing Comments entities.
+ * Ensures that nick, email, and text fields cannot be empty or whitespace-only.
  */
 class CommentsType extends AbstractType
 {
@@ -37,25 +40,33 @@ class CommentsType extends AbstractType
             TextType::class,
             [
                 'label' => 'label_nick',
-                'required' => true,
+                // 'required' => true, removed because entity validation handles it
+                'trim' => true,              // trims whitespace
+                'empty_data' => '',          // ensures value is never null
                 'attr' => ['maxlength' => 255],
             ]
         );
+
         $builder->add(
             'email',
             EmailType::class,
             [
                 'label' => 'label_email',
-                'required' => true,
+                // 'required' => true, removed
+                'trim' => true,
+                'empty_data' => '',
                 'attr' => ['maxlength' => 255],
             ]
         );
+
         $builder->add(
             'text',
             TextareaType::class,
             [
                 'label' => 'label_text',
-                'required' => true,
+                // 'required' => true, removed
+                'trim' => true,
+                'empty_data' => '',
                 'attr' => ['maxlength' => 255],
             ]
         );
